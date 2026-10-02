@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Soranlasht Slope &amp; Aspect</title>
+<meta name="description" content="Slope and aspect of the Soranlasht bench above Kuragh and Charun, Upper Chitral, using Esri's method, with Google Earth Pro imagery 2013–2024.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --ink:#14232E; --muted:#56656D; --rule:#D3DAD6;
+  --bench:#E0A800; --bench-ink:#7D5A00; --path:#1A93A3; --verdict-bg:#14232E; --verdict-ink:#F3F5F2;
+  --display:"Archivo Narrow","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1A21; --surface:#15232C; --ink:#E5EBED; --muted:#97A7AE; --rule:#27363F;
+    --bench:#F2C230; --bench-ink:#F2C230; --path:#3CC6D8; --verdict-bg:#1C2D37; --verdict-ink:#E5EBED;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1A21; --surface:#15232C; --ink:#E5EBED; --muted:#97A7AE; --rule:#27363F;
+  --bench:#F2C230; --bench-ink:#F2C230; --path:#3CC6D8; --verdict-bg:#1C2D37; --verdict-ink:#E5EBED;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding-inline:20px;padding-block:0 64px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+.prose{max-width:68ch}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.6rem,6vw,4.4rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+.stack{display:flex;flex-direction:column;gap:16px}
+.mono{font-family:var(--mono);font-size:.86em;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{padding-top:48px;display:flex;flex-direction:column;gap:18px;border-bottom:1px solid var(--rule);padding-bottom:32px}
+header .sheet{display:flex;flex-wrap:wrap;gap:8px 28px;color:var(--muted)}
+header .lede{font-size:1.15rem;max-width:62ch}
+.mark{display:inline-block;width:.9em;height:.25em;background:var(--bench);vertical-align:middle;margin-right:.35em;border-radius:1px}
+.markc{background:var(--path)}
+.verdict{background:var(--verdict-bg);color:var(--verdict-ink);border-radius:6px;padding:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:center}
+.verdict .q{font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.verdict .a{font-family:var(--display);font-size:clamp(2rem,4.5vw,3rem);font-weight:700;line-height:1.05;margin-top:8px}
+.verdict .a em{font-style:normal;color:var(--bench)}
+.verdict p.s{margin-top:12px;opacity:.88;max-width:46ch}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--verdict-ink);font-family:var(--mono);font-size:12px}
+.chart .grid{stroke:currentColor;opacity:.18}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid var(--rule)}
+.facts div{padding:14px 16px 14px 0;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:2px}
+.facts dt{font-size:.82rem;color:var(--muted)}
+.facts dd{margin:0;font-family:var(--mono);font-size:1.02rem;font-variant-numeric:tabular-nums}
+section{display:flex;flex-direction:column;gap:20px}
+figure{margin:0;display:flex;flex-direction:column;gap:10px}
+figure img{width:100%;height:auto;border-radius:4px;border:1px solid var(--rule);background:var(--surface)}
+figcaption{font-size:.9rem;color:var(--muted);max-width:80ch}
+figcaption b{color:var(--ink);font-weight:600}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.method{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.method .card{border-top:2px solid var(--ink);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.method .card p{font-size:.94rem}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-size:.88rem;min-width:520px}
+th,td{padding:6px 10px;text-align:center;border:1px solid var(--rule)}
+th{font-family:var(--mono);font-weight:500;font-size:.78rem;color:var(--muted)}
+td.sw{width:58px;height:28px}
+td.lab{text-align:left;font-family:var(--mono);font-size:.8rem;white-space:nowrap}
+ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.files code{font-family:var(--mono);font-size:.85em;background:var(--surface);border:1px solid var(--rule);padding:1px 6px;border-radius:3px;word-break:break-all}
+footer{border-top:1px solid var(--rule);padding-top:20px;color:var(--muted);font-size:.85rem}
+a{color:inherit;text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--path);outline-offset:2px}
+@media (max-width:760px){
+  .verdict{grid-template-columns:1fr}
+  .pair{grid-template-columns:1fr}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">RegenX.eco · terrain sheet · Charun union council, Upper Chitral</span>
+  <h1>Soranlasht</h1>
+  <div class="sheet mono">
+    <span>36.2166° N, 72.1765° E</span>
+    <span>2,125–2,239 m</span>
+    <span>35.1 ha</span>
+    <span>DEM Copernicus GLO-30</span>
+    <span>2 Oct 2026</span>
+  </div>
+  <p class="lede">Slope and aspect for the bench above Kuragh and Charun, using the method Esri published for its Native Maps SDKs (release 300.1). The bench is the ground your uplift and canal lines are drawn to serve.</p>
+</header>
+
+<div class="verdict">
+  <div>
+    <div class="q">Does Soranlasht face ESE?</div>
+    <div class="a">No. It faces <em>north-north-west</em>.</div>
+    <p class="s">Mean aspect 335°, with 84% of the bench facing N or NW. No cell falls in the ESE sector (101–124°), and none faces anywhere from E to SE. It is a steady 6–14° ramp that tilts toward the Mastuj.</p>
+  </div>
+  <div class="chart" aria-label="Share of Soranlasht cells by aspect direction">
+    <svg viewBox="0 0 460 274" role="img"><title>Aspect distribution on Soranlasht: N 45%, NE 4%, E 0%, ESE 0%, SE 0%, S 0.3%, SW 4%, W 7.8%, NW 38.8%</title><g class="grid">
+    <line x1="48.0" y1="6" x2="48.0" y2="242"/>
+    <line x1="124.8" y1="6" x2="124.8" y2="242"/>
+    <line x1="201.6" y1="6" x2="201.6" y2="242"/>
+    <line x1="278.4" y1="6" x2="278.4" y2="242"/>
+    <line x1="355.2" y1="6" x2="355.2" y2="242"/>
+    <line x1="432.0" y1="6" x2="432.0" y2="242"/>
+    </g>
+    <text x="0" y="23">N</text>
+    <rect x="48" y="10" width="345.6" height="18" fill="#84D600"/>
+    <text x="399.6" y="23">45%</text>
+    <text x="0" y="49">NE</text>
+    <rect x="48" y="36" width="30.7" height="18" fill="#00AB44"/>
+    <text x="84.7" y="49">4%</text>
+    <text x="0" y="75">E</text>
+    <text x="54.0" y="75">0%</text>
+    <text x="0" y="101">ESE*</text>
+    <text x="54" y="101" font-weight="500">0% (empty)</text>
+    <text x="0" y="127">SE</text>
+    <text x="54.0" y="127">0%</text>
+    <text x="0" y="153">S</text>
+    <rect x="48" y="140" width="2.3" height="18" fill="#CA009C"/>
+    <text x="56.3" y="153">0.3%</text>
+    <text x="0" y="179">SW</text>
+    <rect x="48" y="166" width="30.7" height="18" fill="#FF5568"/>
+    <text x="84.7" y="179">4%</text>
+    <text x="0" y="205">W</text>
+    <rect x="48" y="192" width="59.9" height="18" fill="#FFAB47"/>
+    <text x="113.9" y="205">7.8%</text>
+    <text x="0" y="231">NW</text>
+    <rect x="48" y="218" width="298.0" height="18" fill="#F4FA00"/>
+    <text x="352.0" y="231">38.8%</text>
+    <text x="48.0" y="268" text-anchor="middle">0%</text>
+    <text x="124.8" y="268" text-anchor="middle">10%</text>
+    <text x="201.6" y="268" text-anchor="middle">20%</text>
+    <text x="278.4" y="268" text-anchor="middle">30%</text>
+    <text x="355.2" y="268" text-anchor="middle">40%</text>
+    <text x="432.0" y="268" text-anchor="middle">50%</text>
+    </svg>
+    <p class="mono" style="font-size:.72rem;opacity:.7;margin-top:6px">Share of bench cells by direction faced, in the Esri colormap's hues. *ESE (101–124°) is a 16-point sector between E and SE.</p>
+  </div>
+</div>
+
+<dl class="facts">
+  <div><dt>Area</dt><dd>35.1 ha</dd></div>
+  <div><dt>Elevation (min / mean / max)</dt><dd>2,125 / 2,174 / 2,239 m</dd></div>
+  <div><dt>Height above Charun · Kuragh</dt><dd>+209 m · +223 m</dd></div>
+  <div><dt>Slope mean (p10 / median / p90)</dt><dd>10.5° (6.3 / 10.7 / 14.2°)</dd></div>
+  <div><dt>Average rise</dt><dd>≈ 19% (tan 10.5°)</dd></div>
+  <div><dt>Slope bands 0–5 / 5–20 / 20–40°</dt><dd>4.0 / 95.4 / 0.5%</dd></div>
+  <div><dt>Mean aspect · consistency R</dt><dd>335° (NNW) · 0.85</dd></div>
+  <div><dt>Best-fit plane</dt><dd>8.2° toward 337°</dd></div>
+  <div><dt>Latest Earth imagery</dt><dd>Airbus, 26 Jul 2024</dd></div>
+</dl>
+
+<section>
+  <div class="stack prose">
+    <span class="eyebrow">Location</span>
+    <h2>A bench 210 m above both villages</h2>
+    <p>Soranlasht does not appear in OpenStreetMap, Google Maps or Google Earth's search. It was located from your own lines in My Places: the <span class="mark markc"></span>canal path runs along the bench at about 2,040–2,200 m, and the uplift line drops from its eastern end to Charun. The <span class="mark"></span>outline is every connected cell at 15° or less between 2,050 and 2,320 m, smoothed to remove the 30 m grid steps.</p>
+  </div>
+  <figure>
+    <img src="img/01.jpg" alt="Satellite map of Kuragh, Charun and the Mastuj River with the Soranlasht bench outlined in yellow, 20 m contours and the canal line in cyan" width="1800" height="1285">
+    <figcaption><b>Imagery and 20 m contours.</b> Esri World Imagery (Maxar, 30 Sep 2022). Index contours every 100 m; scale bar 500 m.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="stack prose">
+    <span class="eyebrow">Slope</span>
+    <h2>A steady ramp behind a steep scarp</h2>
+    <p>Slope is the steepest rate of elevation change at each cell, in degrees from 0 (flat) to 90 (vertical). The wall between the valley floor and the bench runs 25–45°. The bench itself is 6–14° almost everywhere, which is terrace-able but not flat: only 4% of it is under 5°.</p>
+  </div>
+  <figure>
+    <img src="img/03.jpg" alt="Slope map in the viridis colour ramp showing steep green-yellow valley walls and the darker gentle bench" width="1800" height="1404">
+    <figcaption><b>Slope, viridis ramp 0–60°.</b> Darker means gentler. The Esri sample stretches 0–90°; 0–60° is used here so the bench's range is visible.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/05.jpg" alt="Two north to south elevation profiles rising from the river through the scarp onto the bench, with an aspect rose dominated by north and north-west" width="1800" height="750">
+    <figcaption><b>Cross-sections and aspect rose.</b> A–A′ runs from the Mastuj bank through the middle of the bench; B–B′ from Charun through its east end. The yellow band marks where each line crosses Soranlasht.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="stack prose">
+    <span class="eyebrow">Aspect</span>
+    <h2>Every arrow points down toward the Mastuj</h2>
+    <p>Aspect is the compass direction a slope faces, measured clockwise from north. The arrows show the downslope direction smoothed over about 150 m, with longer arrows on steeper ground. Across the bench they point N to NW. Only the western tip turns W toward Kuragh.</p>
+  </div>
+  <figure>
+    <img src="img/04.jpg" alt="Eight-direction aspect map with white downslope arrows over the bench, almost all pointing north or north-west" width="1800" height="1409">
+    <figcaption><b>Aspect in eight compass bands with downslope arrows.</b> Grey cells are flat (5° or less).</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="stack prose">
+    <span class="eyebrow">Aspect-slope (Esri method)</span>
+    <h2>Both measures in one map</h2>
+    <p>Following the Esri post, slope goes into four bands and aspect into eight directions, and each cell gets one combined class. Hue shows the direction a slope faces and intensity shows how steep it is. On Soranlasht, 44% of cells are gentle north-facing ground and 37% are gentle north-west-facing.</p>
+  </div>
+  <div class="tbl">
+    <table aria-label="Esri aspect-slope colormap">
+      <thead><tr><th></th><th>N</th><th>NE</th><th>E</th><th>SE</th><th>S</th><th>SW</th><th>W</th><th>NW</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">0–5°</td><td class="sw" style="background:#A1A1A1" colspan="8"></td></tr>
+        <tr><td class="lab">5–20°</td><td class="sw" style="background:#98B581"></td><td class="sw" style="background:#72A890"></td><td class="sw" style="background:#7C8EAD"></td><td class="sw" style="background:#8C75A0"></td><td class="sw" style="background:#B47BA1"></td><td class="sw" style="background:#CB8B8F"></td><td class="sw" style="background:#C5A58A"></td><td class="sw" style="background:#BDBF89"></td></tr>
+        <tr><td class="lab">20–40°</td><td class="sw" style="background:#8DC458"></td><td class="sw" style="background:#3DAB71"></td><td class="sw" style="background:#5078B6"></td><td class="sw" style="background:#77479D"></td><td class="sw" style="background:#C04D9C"></td><td class="sw" style="background:#E76F7A"></td><td class="sw" style="background:#E2A66C"></td><td class="sw" style="background:#D6DB5E"></td></tr>
+        <tr><td class="lab">&gt;40°</td><td class="sw" style="background:#84D600"></td><td class="sw" style="background:#00AB44"></td><td class="sw" style="background:#0068C0"></td><td class="sw" style="background:#6C00A3"></td><td class="sw" style="background:#CA009C"></td><td class="sw" style="background:#FF5568"></td><td class="sw" style="background:#FFAB47"></td><td class="sw" style="background:#F4FA00"></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <img src="img/02.jpg" alt="Aspect-slope class map over satellite imagery; the bench shows muted green and khaki for gentle north and north-west facing ground" width="1800" height="1473">
+    <figcaption><b>Aspect-slope classes on Esri imagery.</b> The colormap is Esri's own, copied value for value from the post's Flutter sample.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="stack prose">
+    <span class="eyebrow">Google Earth Pro</span>
+    <h2>The same layers in Earth, flat and in 3D</h2>
+    <p>The overlays were loaded into Google Earth Pro over its latest imagery for this spot, Airbus, 26 July 2024. The oblique views look south-south-east from above the river, so the bench rises away from the camera.</p>
+  </div>
+  <div class="pair">
+    <figure>
+      <img src="img/06.jpg" alt="Google Earth Pro top-down view of the bench outline above Kuragh and Charun" width="1800" height="1351" loading="lazy">
+      <figcaption><b>Latest imagery</b> with the outline and your paths.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/09.jpg" alt="Google Earth Pro 3D oblique view of the bench from the north" width="1800" height="1351" loading="lazy">
+      <figcaption><b>3D oblique</b> from the north.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/07.jpg" alt="Google Earth Pro view with the aspect-slope overlay draped over terrain" width="1800" height="1594" loading="lazy">
+      <figcaption><b>Aspect-slope overlay</b> in Earth.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/10.jpg" alt="Google Earth Pro 3D oblique view with the aspect-slope overlay draped" width="1800" height="1594" loading="lazy">
+      <figcaption><b>3D oblique with aspect-slope</b> draped.</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <img src="img/08.jpg" alt="Google Earth Pro view with eight-direction aspect overlay and downslope arrows on the bench" width="1800" height="1513" loading="lazy">
+    <figcaption><b>Aspect and downslope arrows in Earth.</b></figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="stack prose">
+    <span class="eyebrow">Historical imagery</span>
+    <h2>Unchanged from 2013 to 2024</h2>
+    <p>Earth holds five sharp layers here: Nov 2013, May 2017, Aug 2020, Oct 2022 and Jul 2024. Earlier layers are Landsat-grade only. At every date the bench is bare and unirrigated, with footpaths and two pale cleared patches on its north-west lobe and no fields or buildings. At this zoom you can't tell whether a channel has been built along the canal line. All the visible change is on the valley floor: the river braids and the orchards.</p>
+  </div>
+  <figure>
+    <img src="img/11.jpg" alt="Grid of five Google Earth historical images of the bench from 2013 to 2024 with the same outline" width="1800" height="1901" loading="lazy">
+    <figcaption><b>Same camera and outline at each date.</b> Dates are read from Earth's historical-imagery slider.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="stack prose">
+    <span class="eyebrow">Method</span>
+    <h2>How the numbers were made</h2>
+  </div>
+  <div class="method">
+    <div class="card"><h3>Source and kernel</h3><p>Copernicus GLO-30 (30 m), projected to UTM 43N. Slope and aspect use the Horn 3×3 kernel that ArcGIS uses. It was checked on synthetic planes facing east and north, which returned 90.0° and 0.0°.</p></div>
+    <div class="card"><h3>Esri conventions</h3><p>Slope runs 0–90°. Aspect runs from 0 up to 360°, clockwise from north, with flat cells set to −1. There are eight bands, and north wraps from 337.5° to 22.5°. Aspect-slope class = slope bucket (10/20/30/40) + direction (1–8).</p></div>
+    <div class="card"><h3>Statistics</h3><p>Statistics come from the native 30 m cells inside the outline. Mean aspect is slope-weighted and circular. R is the length of the mean direction vector: 1 means every cell faces the same way.</p></div>
+    <div class="card"><h3>Limits</h3><p>A 30 m model smooths small terraces and gully walls, so it understates short steep breaks. The outline is a slope threshold, not a surveyed or cadastral boundary. The 10 m display rasters are resampled only to look smooth and carry no extra detail.</p></div>
+  </div>
+</section>
+
+<section class="files">
+  <div class="stack prose">
+    <span class="eyebrow">Files</span>
+    <h2>Downloads</h2>
+    <ul>
+      <li><a href="google_earth/Soranlasht_slope_aspect.kmz">Soranlasht_slope_aspect.kmz</a> opens in Google Earth Pro. It has the outline, three switchable overlays, contours, downslope arrows and the canal/uplift lines.</li>
+      <li><a href="https://github.com/dinarwali4/soranlasht-slope-aspect/tree/main/figures">figures/</a> has the 11 annotated maps at full resolution.</li>
+      <li><a href="data/soranlasht_outline_and_stats.json">Outline and statistics (JSON)</a> and <a href="data/soranlasht_stats.csv">CSV</a>.</li>
+      <li><a href="https://github.com/dinarwali4/soranlasht-slope-aspect">Source repository</a> with the Python scripts and README.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Method source: Esri, “<a href="https://www.esri.com/arcgis-blog/products/developers/developers/calculate-slope-and-aspect-in-native-maps-sdks" rel="noopener">Calculate slope and aspect with Native Maps SDKs</a>”, 15 Sep 2026. Imagery: Google Earth Pro (Airbus and historical layers); Esri World Imagery (Maxar). DEM: Copernicus GLO-30. Prepared by RegenX.eco.
+</footer>
+</div>
+
+</body>
+</html>
